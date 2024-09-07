@@ -1,5 +1,4 @@
 <script setup lang="ts">
-<<<<<<< HEAD
 import { getHomeCategoryAPI } from '@/services/home'
 
 const categoryList = ref<IMutli[]>([])
@@ -11,9 +10,6 @@ const getCategoryData = async () => {
 onLoad(() => {
   getCategoryData()
 })
-=======
-//
->>>>>>> e3bc191 (前台分类组件)
 </script>
 
 <template>
