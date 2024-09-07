@@ -5,7 +5,7 @@ import CustomNavbar from './components/CustomNavbar.vue'
 import CategoryPanel from './components/CategoryPanel.vue'
 import HotPanle from './components/HotPanle.vue'
 
-// 轮播图获取
+// 轮播图获取1
 const bannerList = ref<IBanner[]>([])
 const getHomeBannerData = async () => {
   const res = await getHomeBannerAPI()
