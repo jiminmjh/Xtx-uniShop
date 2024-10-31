@@ -26,3 +26,12 @@ export const getHomemutliAPI = () => {
     url: '/home/hot/mutli',
   })
 }
+
+// 猜你喜欢区域接口
+export const getLikeAPI = (data?: IPage) => {
+  return http<ILike>({
+    method: 'GET',
+    url: '/home/goods/guessLike',
+    data,
+  })
+}

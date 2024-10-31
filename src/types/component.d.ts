@@ -1,4 +1,3 @@
-// 给全局引入组件添加类型声明
 import XtxSwiper from '@/components/XtxSwiper.vue'
 import XtxGuess from '@/components/XtxGuess.vue'
 

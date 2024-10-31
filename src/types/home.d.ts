@@ -19,3 +19,11 @@ declare interface IHot {
   title: string
   type: string
 }
+// 猜你喜欢
+declare interface ILike {
+  counts: number
+  pageSize: number
+  pages: number
+  page: number
+  items: IItem[]
+}

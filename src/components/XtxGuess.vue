@@ -1,7 +1,3 @@
-<script setup lang="ts">
-//
-</script>
-
 <template>
   <!-- 猜你喜欢 -->
   <view class="caption">
@@ -10,24 +6,46 @@
   <view class="guess">
     <navigator
       class="guess-item"
-      v-for="item in 10"
+      v-for="item in list"
       :key="item"
-      :url="`/pages/goods/goods?id=4007498`"
+      :url="`/pages/goods/goods?id=${item.id}`"
     >
-      <image
-        class="image"
-        mode="aspectFill"
-        src="https://pcapi-xiaotuxian-front-devtest.itheima.net/miniapp/uploads/goods_big_1.jpg"
-      ></image>
-      <view class="name"> 德国THORE男表 超薄手表男士休闲简约夜光石英防水直径40毫米 </view>
+      <image class="image" mode="aspectFill" :src="item.picture"></image>
+      <view class="name"> {{ item.name }} </view>
       <view class="price">
         <text class="small">¥</text>
-        <text>899.00</text>
+        <text>{{ item.price }}</text>
       </view>
     </navigator>
   </view>
   <view class="loading-text"> 正在加载... </view>
 </template>
+
+<script setup lang="ts">
+import { getLikeAPI } from '@/services/home'
+
+// 分页参数
+const pageParam: Required<IPage> = {
+  page: 1,
+  pageSize: 10,
+}
+// 猜你喜欢数据获取
+const list = ref<IItem[]>([])
+const getList = async (data: IPage) => {
+  const res = await getLikeAPI(data)
+  list.value.push(...res.result.items)
+  // 页码累加
+  pageParam.page++
+}
+
+onMounted(() => {
+  getList(pageParam)
+})
+
+defineExpose({
+  getMore: () => getList(pageParam),
+})
+</script>
 
 <style lang="scss">
 :host {
