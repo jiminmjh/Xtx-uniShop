@@ -1,10 +1,18 @@
 /** 全局类型 */
 
-// 通用分页结果类型
-declare interface PageResult<T> {
-  counts: number
-  pageSize: number
-  pages: number
-  page: number
-  items: T[]
+// 通用分页结果查询
+declare interface IItem {
+  id: string
+  name: string
+  desc: string
+  price: number
+  picture: string
+  discount: number
+  orderNum: number
+}
+
+// 通用分页参数类型
+declare interface IPage {
+  page?: number // 页码默认1
+  pageSize?: number // 页数默认10
 }
