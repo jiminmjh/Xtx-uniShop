@@ -18,7 +18,7 @@
       </view>
     </navigator>
   </view>
-  <view class="loading-text"> 正在加载... </view>
+  <view class="loading-text">{{ flag ? '全部加载完成了~' : '正在加载...' }} </view>
 </template>
 
 <script setup lang="ts">
@@ -29,13 +29,19 @@ const pageParam: Required<IPage> = {
   page: 1,
   pageSize: 10,
 }
+// 结束标志
+const flag = ref(false)
 // 猜你喜欢数据获取
 const list = ref<IItem[]>([])
+
 const getList = async (data: IPage) => {
+  if (flag.value === true) return uni.showToast({ icon: 'none', title: '没有更多数据了~' })
   const res = await getLikeAPI(data)
   list.value.push(...res.result.items)
-  // 页码累加
-  pageParam.page++
+  if (pageParam.page < res.result.pages) {
+    // 页码累加
+    pageParam.page++
+  } else flag.value = true
 }
 
 onMounted(() => {

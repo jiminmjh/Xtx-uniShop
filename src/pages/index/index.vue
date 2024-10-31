@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app'
-import { getHomeBannerAPI, getHomemutliAPI, getLikeAPI } from '@/services/home'
+import { getHomeBannerAPI, getHomemutliAPI, getHomeCategoryAPI } from '@/services/home'
 import type { XtxGuessInstance } from '@/types/component'
 import CustomNavbar from './components/CustomNavbar.vue'
 import CategoryPanel from './components/CategoryPanel.vue'
@@ -20,6 +20,13 @@ const getHotmutliData = async () => {
   hotList.value = res.result
 }
 
+// 分类获取
+const categoryList = ref<IMutli[]>([])
+const getCategoryData = async () => {
+  const res = await getHomeCategoryAPI()
+  categoryList.value = res.result
+}
+
 // ! 获取猜你喜欢组件实例
 const guessRef = ref<XtxGuessInstance>()
 // 滚动触底
@@ -27,9 +34,24 @@ const handleScrollLower = () => {
   guessRef.value?.getMore()
 }
 
+// 下次刷新状态控制
+const flag = ref(false)
+// 自定义刷新触发
+const handleQuery = async () => {
+  flag.value = true
+  // await getHomeBannerData()
+  // await getHotmutliData()
+  // await getCategoryData()
+  //! 代码优化 - 多个请求同时发送
+  const res: unknown = await Promise.all([
+    getHomeBannerData(),
+    getHotmutliData(),
+    getCategoryData(),
+  ])
+  flag.value = false
+}
 onLoad(() => {
-  getHomeBannerData()
-  getHotmutliData()
+  handleQuery()
 })
 </script>
 
@@ -37,11 +59,18 @@ onLoad(() => {
   <!-- 自定义导航栏 -->
   <CustomNavbar />
 
-  <scroll-view @scrolltolower="handleScrollLower" scroll-y class="scroll-view">
+  <scroll-view
+    refresher-enabled="true"
+    @refresherrefresh="handleQuery"
+    :refresher-triggered="flag"
+    @scrolltolower="handleScrollLower"
+    scroll-y
+    class="scroll-view"
+  >
     <!-- 轮播图 -->
     <XtxSwiper :list="bannerList" />
     <!-- 分类面板 -->
-    <CategoryPanel />
+    <CategoryPanel :list="categoryList" />
     <!-- 热门推荐 -->
     <HotPanle :list="hotList" />
     <!-- 猜你喜欢 -->

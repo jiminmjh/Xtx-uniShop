@@ -1,15 +1,6 @@
 <script setup lang="ts">
-import { getHomeCategoryAPI } from '@/services/home'
-
-const categoryList = ref<IMutli[]>([])
-
-const getCategoryData = async () => {
-  const res = await getHomeCategoryAPI()
-  categoryList.value = res.result
-}
-onLoad(() => {
-  getCategoryData()
-})
+const prop = defineProps<{ list: IMutli[] }>()
+const { list } = toRefs(prop)
 </script>
 
 <template>
@@ -18,7 +9,7 @@ onLoad(() => {
       class="category-item"
       hover-class="none"
       url="/pages/index/index"
-      v-for="item in categoryList"
+      v-for="item in list"
       :key="item.id"
     >
       <image class="icon" :src="item.icon"></image>
