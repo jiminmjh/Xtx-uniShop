@@ -20,6 +20,6 @@ jobs:
       - name: Merge to Main
         run: |
           git checkout main
-          git pull origin main  # 确保 main 分支是最新的
-          git merge feature     # 将 feature 合并到 main
+          git pull
+          git merge feature
           git push origin main
