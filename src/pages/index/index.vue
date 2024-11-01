@@ -5,6 +5,7 @@ import type { XtxGuessInstance } from '@/types/component'
 import CustomNavbar from './components/CustomNavbar.vue'
 import CategoryPanel from './components/CategoryPanel.vue'
 import HotPanle from './components/HotPanle.vue'
+import PageSkeleton from './components/PageSkeleton.vue'
 
 // 轮播图获取1
 const bannerList = ref<IBanner[]>([])
@@ -45,8 +46,14 @@ const handleQuery = async () => {
   guessRef.value?.setReset()
   flag.value = false
 }
-onLoad(() => {
-  handleQuery()
+
+// 是否加载
+const isLoading = ref(false)
+
+onLoad(async () => {
+  isLoading.value = true
+  await Promise.all([getHomeBannerData(), getHotmutliData(), getCategoryData()])
+  isLoading.value = false
 })
 </script>
 
@@ -62,14 +69,18 @@ onLoad(() => {
     scroll-y
     class="scroll-view"
   >
-    <!-- 轮播图 -->
-    <XtxSwiper :list="bannerList" />
-    <!-- 分类面板 -->
-    <CategoryPanel :list="categoryList" />
-    <!-- 热门推荐 -->
-    <HotPanle :list="hotList" />
-    <!-- 猜你喜欢 -->
-    <XtxGuess ref="guessRef" />
+    <!-- 骨架屏 -->
+    <PageSkeleton v-if="isLoading" />
+    <template v-if="!isLoading">
+      <!-- 轮播图 -->
+      <XtxSwiper :list="bannerList" />
+      <!-- 分类面板 -->
+      <CategoryPanel :list="categoryList" />
+      <!-- 热门推荐 -->
+      <HotPanle :list="hotList" />
+      <!-- 猜你喜欢 -->
+      <XtxGuess ref="guessRef"
+    /></template>
   </scroll-view>
 </template>
 
