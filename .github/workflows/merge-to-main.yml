@@ -1,30 +1,9 @@
-name: Merge to Main
-
-# on:
-#   schedule:
-#     - cron: '0 0 * * *' # 每天 0 点运行（可按需求调整）
-
-# jobs:
-#   merge:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout
-#         uses: actions/checkout@v2
-
-#       - name: Configure Git
-#         run: |
-#           git config --global user.name "yuuuuuj"
-#           git config --global user.email "17373046129@163.com"
-
-#       - name: Merge to Main
-#         run: |
-#           git checkout main
-#           git merge feature
-#           git push origin main
-# name: Merge Feature to Main
+name: Auto Merge Feature to Main
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - feature # 这里填写你的开发分支名称
 
 jobs:
   merge:
