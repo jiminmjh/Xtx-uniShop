@@ -19,6 +19,7 @@ jobs:
 
       - name: Merge to Main
         run: |
+          git fetch origin
           git checkout main
           git pull
           git merge feature
