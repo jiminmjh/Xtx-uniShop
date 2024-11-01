@@ -3,7 +3,7 @@ name: Auto Merge Feature to Main
 on:
   push:
     branches:
-      - feature # 这里填写你的开发分支名称
+      - feature # 开发分支名称
 
 jobs:
   merge:
