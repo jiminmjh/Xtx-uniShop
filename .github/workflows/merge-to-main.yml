@@ -24,14 +24,10 @@ name: Merge to Main
 # name: Merge Feature to Main
 
 on:
-  pull_request:
-    branches:
-      - main
-    types: [closed]
+  workflow_dispatch:
 
 jobs:
   merge:
-    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -45,5 +41,6 @@ jobs:
       - name: Merge to Main
         run: |
           git checkout main
-          git merge feature
+          git pull origin main  # 确保 main 分支是最新的
+          git merge feature     # 将 feature 合并到 main
           git push origin main
