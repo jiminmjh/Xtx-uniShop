@@ -1,4 +1,5 @@
 <script setup lang="ts">
+let str: any
 const prop = defineProps<{ list: IMutli[] }>()
 const { list } = toRefs(prop)
 </script>

@@ -39,15 +39,10 @@ const flag = ref(false)
 // 自定义刷新触发
 const handleQuery = async () => {
   flag.value = true
-  // await getHomeBannerData()
-  // await getHotmutliData()
-  // await getCategoryData()
   //! 代码优化 - 多个请求同时发送
-  const res: unknown = await Promise.all([
-    getHomeBannerData(),
-    getHotmutliData(),
-    getCategoryData(),
-  ])
+  await Promise.all([getHomeBannerData(), getHotmutliData(), getCategoryData()])
+  // 重置猜你喜欢数据
+  guessRef.value?.setReset()
   flag.value = false
 }
 onLoad(() => {

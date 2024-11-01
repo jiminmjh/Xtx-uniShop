@@ -44,12 +44,20 @@ const getList = async (data: IPage) => {
   } else flag.value = true
 }
 
+// 重置数据
+const setReset = () => {
+  pageParam.page = 1
+  list.value = []
+  flag.value = false
+}
+
 onMounted(() => {
   getList(pageParam)
 })
 
 defineExpose({
   getMore: () => getList(pageParam),
+  setReset,
 })
 </script>
 

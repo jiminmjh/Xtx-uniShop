@@ -2,6 +2,8 @@
   "extends": "@vue/tsconfig/tsconfig.json",
   "compilerOptions": {
     "skipLibCheck": true, //跳过对声明文件 (.d.ts 文件) 的类型检查
+    "strict": true, // 严格模式
+    "noImplicitAny": true, //不允许隐式 any 类型
     "allowJs": true,
     "sourceMap": true,
     "baseUrl": ".",
