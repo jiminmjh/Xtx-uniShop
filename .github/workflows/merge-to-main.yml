@@ -1,0 +1,25 @@
+name: Auto Merge Feature to dev
+
+on:
+  push:
+    branches:
+      - feature # 开发分支名称
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "yuuuuuj"
+          git config --global user.email "17373046129@163.com"
+
+      - name: Merge to Dev
+        run: |
+          git checkout dev             # 切换 dev
+          git pull                     # 确保 dev 分支是最新的
+          git merge feature            # 将 feature 合并到 dev
+          git push                     # 推送合并后的 dev 分支到远程仓库
