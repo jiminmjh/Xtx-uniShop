@@ -3,7 +3,7 @@ name: Auto Merge to Main
 on:
   push:
     branches:
-      - feature # 开发分支名称
+      - feature
 
 jobs:
   merge:
