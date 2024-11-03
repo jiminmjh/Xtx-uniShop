@@ -28,4 +28,4 @@ jobs:
           git merge feature      # 将 feature 分支合并到 main
           git push origin main   # 推送更新到远程 main 分支
         env:
-          GITHUB_TOKEN: ${{ secrets.xtx_token}}
+          GITHUB_TOKEN: ${{ secrets.XTX_TOKEN}}
