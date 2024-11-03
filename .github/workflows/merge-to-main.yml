@@ -24,8 +24,8 @@ jobs:
       - name: Merge to Main
         run: |
           git checkout main
-          git pull origin main   # 确保 main 分支是最新的
+          git pull origin main --allow-unrelated-histories  # 确保 main 分支是最新的
           git merge feature      # 将 feature 分支合并到 main
           git push origin main   # 推送更新到远程 main 分支
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: XTX_TOKEN
