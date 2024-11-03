@@ -14,8 +14,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config --global user.name "yuuuuuj"
-          git config --global user.email "17373046129@163.com"
+          git config --global user.name "jiminmjh"
+          git config --global user.email "1486489731@qq.com"
 
       - name: Merge to Dev
         run: |
