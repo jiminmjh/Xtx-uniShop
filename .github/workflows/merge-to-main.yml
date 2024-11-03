@@ -19,7 +19,7 @@ jobs:
 
       - name: Merge to Dev
         run: |
-          git checkout dev             # 切换到 dev
+          git checkout dev             # 切换 dev
           git pull                     # 确保 dev 分支是最新的
           git merge feature            # 将 feature 合并到 dev
           git push                     # 推送合并后的 dev 分支到远程仓库
