@@ -1,5 +1,5 @@
 <script setup lang="ts">
-let str: any
+import type { IMutli } from '@/types/home'
 const prop = defineProps<{ list: IMutli[] }>()
 const { list } = toRefs(prop)
 </script>

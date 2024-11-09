@@ -1,4 +1,5 @@
 import { http } from '@/utils/http'
+import type { IBanner, IMutli, IHot } from '@/types/home'
 
 // 首页广告区域接口
 export const getHomeBannerAPI = (distributionSite = 1) => {
@@ -29,7 +30,7 @@ export const getHomemutliAPI = () => {
 
 // 猜你喜欢区域接口
 export const getLikeAPI = (data?: IPage) => {
-  return http<ILike>({
+  return http<IList<IItem>>({
     method: 'GET',
     url: '/home/goods/guessLike',
     data,

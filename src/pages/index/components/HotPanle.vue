@@ -1,5 +1,13 @@
 <script setup lang="ts">
+import type { IHot } from '@/types/home'
 const { list } = defineProps<{ list: IHot[] }>()
+
+const handleClick = (e: WechatMiniprogram.CustomEvent) => {
+  const type = e.currentTarget.dataset.type
+  wx.navigateTo({
+    url: `/pages/hot/hot?type=${type}`,
+  })
+}
 </script>
 
 <template>
@@ -10,13 +18,15 @@ const { list } = defineProps<{ list: IHot[] }>()
         <text class="title-text">{{ item.title }}</text>
         <text class="title-desc">{{ item.alt }}</text>
       </view>
-      <navigator hover-class="none" url="/pages/hot/hot" class="cards">
+      <navigator hover-class="none" :url="`/pages/hot/hot?type=${item.type}`" class="cards">
         <image
           v-for="(e, index) in item.pictures"
           :key="index"
           class="image"
           mode="aspectFit"
           :src="e"
+          data-type="{{item.type}}"
+          :bindtap="handleClick"
         ></image>
       </navigator>
     </view>
