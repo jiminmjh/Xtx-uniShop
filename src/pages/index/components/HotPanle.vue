@@ -26,7 +26,7 @@ const handleClick = (e: WechatMiniprogram.CustomEvent) => {
           mode="aspectFit"
           :src="e"
           data-type="{{item.type}}"
-          :bindtap="handleClick"
+          @tap="handleClick"
         ></image>
       </navigator>
     </view>

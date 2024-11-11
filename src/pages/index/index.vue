@@ -6,6 +6,7 @@ import CustomNavbar from './components/CustomNavbar.vue'
 import CategoryPanel from './components/CategoryPanel.vue'
 import HotPanle from './components/HotPanle.vue'
 import PageSkeleton from './components/PageSkeleton.vue'
+import type { IBanner, IHot, IMutli } from '@/types/home'
 
 // 轮播图获取1
 const bannerList = ref<IBanner[]>([])
