@@ -20,6 +20,7 @@
 </template>
 
 <script setup lang="ts">
+import type { IBanner } from '@/types/home'
 const { list } = defineProps<{ list: IBanner[] }>()
 const activeIndex = ref(0)
 

@@ -1,73 +1,94 @@
 <template>
-  <div id="app">
-    <div class="video-js" ref="videos" style="width: 100%; height: 100%"></div>
-  </div>
+  <view class="main" v-if="isFinish">
+    <view class="search"> <input text="text" class="search-input" placeholder="     女靴" /> </view>
+    <view class="content">
+      <scroll-view class="scroll-left" scroll-y>
+        <view
+          class="item"
+          :class="{ active: item.id === active }"
+          v-for="item in cateList"
+          :key="item.id"
+          @tap="active = item.id"
+          >{{ item.name }}</view
+        >
+      </scroll-view>
+      <scroll-view
+        refresher-enabled="true"
+        @scrolltolower="handleScrollLower"
+        scroll-y
+        class="scroll-right"
+      >
+        <view class="swiper">
+          <XtxSwiper :list="bannerList" />
+        </view>
+        <view class="goods-list" v-for="e in getNowItem?.children" :key="e.id">
+          <view class="item">
+            <text class="item-title"> {{ e.name }} </text>
+            <text class="item-all"> 全部 > </text>
+          </view>
+
+          <view class="goods-list-box">
+            <view class="item-good" v-for="good in e.goods" :key="good.id">
+              <view class="item-img"> <image :src="good.picture" /></view>
+              <view class="dice">{{ good.name }}</view>
+              <br />
+              <view class="price">{{ good.price }}</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+  <PageSkeleton v-if="!isFinish" />
 </template>
 
-<script>
-export default {
-  mounted() {
-    let video = document.createElement('video')
-    video.id = 'video'
-    video.style = 'width: 100%; height: 100%;'
-    video.controls = true
-    video.preload = 'auto'
-    video.setAttribute('playsinline', true) //IOS微信浏览器支持小窗内播放
-    video.setAttribute('webkit-playsinline', true) //这个bai属性是ios 10中设置可以让视频在小du窗内播放，也就是不是全zhi屏播放的video标签的一个属性
-    video.setAttribute('x5-video-player-type', 'h5') //安卓 声明启用同层H5播放器 可以在video上面加东西
-    let source = document.createElement('source')
-    source.src = 'http://183.167.196.100:83/openUrl/nBgOnDy/live.m3u8'
-    video.appendChild(source)
-    // return
-    this.$refs.videos.appendChild(video)
-    let that = this
-    let player = this.$video(
-      'video',
-      {
-        poster: '', // 视频封面图地址
-        title: '4564564',
-        playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
-        autoDisable: true,
-        preload: 'none', //auto - 当页面加载后载入整个视频 meta - 当页面加载后只载入元数据 none - 当页面加载后不载入视频
-        language: 'zh-CN',
-        fluid: true, // 自适应宽高
-        muted: false, //  是否静音
-        aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
-        controls: true, //是否拥有控制条 【默认true】,如果设为false ,那么只能通过api进行控制了。也就是说界面上不会出现任何控制按钮
-        autoplay: false, //如果true,浏览器准备好时开始回放。 autoplay: "muted", // //自动播放属性,muted:静音播放
-        loop: true, // 导致视频一结束就重新开始。 视频播放结束后，是否循环播放
-        screenshot: true,
-        controlBar: {
-          volumePanel: {
-            //声音样式
-            inline: false, // 不使用水平方式
-          },
-          timeDivider: true, // 时间分割线
-          durationDisplay: true, // 总时间
-          progressControl: true, // 进度条
-          remainingTimeDisplay: true, //当前以播放时间
-          fullscreenToggle: true, //全屏按钮
-          pictureInPictureToggle: true, //画中画
-        },
-      },
-      function () {
-        this.on('error', function (err) {
-          //请求数据时遇到错误
-          console.log('请求数据时遇到错误', err)
-        })
-        this.on('stalled', function (stalled) {
-          //网速失速
-          console.log('网速失速', stalled)
-        })
-      },
-    )
-  },
+<script setup lang="ts">
+import { onLoad } from '@dcloudio/uni-app'
+import PageSkeleton from './components/PageSkeleton.vue'
+import { getCateListAPI } from '@/services/category'
+import { getHomeBannerAPI } from '@/services/home'
+import type { XtxGuessInstance } from '@/types/component'
+import type { ICateData } from '@/types/category'
+import type { IBanner } from '@/types/home'
+
+// 全部分页数据
+const cateList = ref<ICateData[]>([])
+
+// 计算当前高亮的数据
+const getNowItem = computed(() => {
+  return cateList.value.find((e) => e.id === active.value)
+})
+const active = ref('')
+
+// ! 获取猜你喜欢组件实例
+const guessRef = ref<XtxGuessInstance>()
+// 滚动触底
+const handleScrollLower = () => {
+  guessRef.value?.getMore()
 }
+
+const getCateList = async () => {
+  const res = await getCateListAPI()
+  cateList.value = res.result
+  active.value = cateList.value[0]?.id
+}
+
+// 轮播图获取1
+const bannerList = ref<IBanner[]>([])
+const getHomeBanner = async () => {
+  const res = await getHomeBannerAPI()
+  bannerList.value = res.result
+}
+
+// 是否数据加载完毕
+const isFinish = ref(false)
+
+onLoad(async () => {
+  await Promise.all([getCateList(), getHomeBanner()])
+  isFinish.value = true
+})
 </script>
 
-<style>
-#app {
-  width: 100vw;
-  height: 100vh;
-}
+<style lang="scss" scoped>
+@import './index.scss';
 </style>

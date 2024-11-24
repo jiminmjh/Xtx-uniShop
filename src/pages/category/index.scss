@@ -1,0 +1,124 @@
+.main {
+  height: 100%;
+  background-color: #feffff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  .search {
+    height: 68rpx;
+    margin-bottom: 20rpx;
+    margin: 0 auto;
+    .search-input {
+      width: 680rpx;
+      height: 68rpx;
+      background-color: #f3f4f4;
+      border-radius: 100rpx;
+    }
+  }
+  .content {
+    margin-top: 18rpx;
+    flex: 1;
+    min-height: 400rpx;
+    display: flex;
+    background-color: white;
+    .scroll-left {
+      flex: none;
+      height: 1200rpx;
+      overflow: auto;
+      width: 180rpx;
+      background: #f6f6f6;
+      margin-right: 36rpx;
+      .item {
+        width: 180rpx;
+        height: 100rpx;
+        background: orange;
+        margin-right: 20rpx;
+
+        text-align: center;
+        line-height: 100rpx;
+        color: #5b5d69;
+        background-color: #f6f5f6;
+      }
+      .item::before {
+        content: '';
+        width: 110rpx;
+        height: 1rpx;
+        display: block;
+        margin: 0 auto;
+        background-color: #e8e8eb;
+      }
+      .item:nth-of-type(1)::before {
+        display: none;
+      }
+      .active {
+        background-color: #ffffff;
+        padding-right: 12rpx;
+        border-left: 10rpx solid #5ab79c;
+      }
+    }
+    .scroll-right {
+      width: 530rpx;
+      height: 1200rpx;
+      background: #ffffff;
+      overflow: auto;
+      :deep(.swiper) {
+        margin-bottom: 66rpx;
+      }
+      .goods-list {
+        margin-bottom: 30rpx;
+        .item {
+          width: 520rpx;
+          margin-bottom: 20rpx;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          color: #5b5d69;
+          font-size: 28rpx;
+          border-bottom: 1rpx solid #f9f9f9;
+          .item-all {
+            font-size: 20rpx;
+            margin-bottom: 20rpx;
+          }
+        }
+
+        .goods-list-box {
+          margin-right: 20rpx;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+          align-items: center;
+          .item-good {
+            margin: 0 24rpx 24rpx 0;
+            box-sizing: border-box;
+            width: 140rpx;
+            height: 250rpx;
+            font-size: 20rpx;
+            .item-img {
+              width: 140rpx;
+              height: 140rpx;
+            }
+            .dice {
+              color: #5b5d69;
+              display: -webkit-box; /* 必须搭配 */
+              -webkit-box-orient: vertical; /* 设置为垂直方向 */
+              overflow: hidden; /* 超出隐藏 */
+              text-overflow: ellipsis; /* 超出显示省略号 */
+              -webkit-line-clamp: 2; /* 限制显示2行 */
+              line-height: 26rpx; /* 设置行高，根据设计调整 */
+              max-height: 3em; /* 行数 × 行高，确保效果 */
+              word-wrap: break-word;
+            }
+            .price {
+              overflow: hidden;
+              height: 36px;
+              font-size: 28rpx;
+              color: red;
+              overflow: hidden; /* 超出隐藏 */
+              text-overflow: ellipsis; /* 超出显示省略号 */
+            }
+          }
+        }
+      }
+    }
+  }
+}
