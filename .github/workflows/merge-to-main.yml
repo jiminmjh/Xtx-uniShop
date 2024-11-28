@@ -20,6 +20,6 @@ jobs:
         run: |
           git fetch
           git checkout remotes/origin/main
-          git pull
+          git pull origin main
           git merge remotes/origin/feature
-          git push
+          git push origin main
