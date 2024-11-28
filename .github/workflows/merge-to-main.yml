@@ -19,6 +19,6 @@ jobs:
 
       - name: Merge to Main
         run: |
-          git checkout main
+          git checkout remotes/origin/dev
           git pull
           git checkout -b feature-merge
