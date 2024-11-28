@@ -1,6 +1,6 @@
 <template>
   <view class="main" v-if="isFinish">
-    <view class="search"> <input text="text" class="search-input" placeholder="     女靴" /> </view>
+    <view class="search"> <input text="text" class="search-input" placeholder="    女靴" /> </view>
     <view class="content">
       <scroll-view class="scroll-left" scroll-y>
         <view
