@@ -15,7 +15,7 @@ jobs:
         run: |
           git config --global user.name "yuuuuuj"
           git config --global user.email "17373046129@163.com"
-          git remote set-url origin https://${{ secrets.XTX_TOKEN }}@github.com/Xtx-uniShop.git
+          git remote set-url origin https://github.com/jiminmjh/Xtx-uniShop.git
 
       - name: Merge changes
         run: |
