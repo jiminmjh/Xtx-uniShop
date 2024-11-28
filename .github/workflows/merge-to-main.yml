@@ -1,0 +1,26 @@
+name: Auto Merge Feature to Main
+
+on:
+  push:
+    branches:
+      - feature # 开发分支名称
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "yuuuuuj"
+          git config --global user.email "17373046129@163.com"
+
+      - name: Merge to Main
+        run: |
+          git fetch origin             # 拉取所有远程分支
+          git checkout main            # 切换到 main 分支
+          git pull origin main         # 确保 main 分支是最新的
+          git merge feature            # 将 feature 合并到 main
+          git push origin main         # 推送合并后的 main 分支到远程仓库
