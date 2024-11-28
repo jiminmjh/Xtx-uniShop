@@ -12,8 +12,8 @@
           <view
             class="item data-v-4046d630 sk-transparent sk-text-34-0000-55 sk-text sk-pseudo sk-pseudo-circle"
             style="background-position-x: 50%"
-            >居家
-          </view>
+            >居家</view
+          >
           <view
             class="item data-v-4046d630 sk-transparent sk-text-34-0000-293 sk-text sk-pseudo sk-pseudo-circle"
             style="background-position-x: 50%"
