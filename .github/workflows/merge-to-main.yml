@@ -15,11 +15,12 @@ jobs:
         run: |
           git config --global user.name "yuuuuuj"
           git config --global user.email "17373046129@163.com"
+          git remote set-url origin https://github.com/jiminmjh/Xtx-uniShop.git
 
-      - name: Merge change
+      - name: Merge changes
         run: |
           git fetch
-          git checkout remotes/origin/main
-          git pull origin main
-          git merge remotes/origin/feature
-          git push origin main
+          git checkout main
+          git pull
+          git merge feature
+          git push
