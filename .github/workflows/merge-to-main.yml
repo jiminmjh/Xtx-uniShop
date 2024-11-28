@@ -19,7 +19,7 @@ jobs:
       - name: Merge change
         run: |
           git fetch
-          git checkout orange/main
+          git checkout remotes/origin/main
           git pull
-          git merge orange/feature
+          git merge remotes/origin/feature
           git push
