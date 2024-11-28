@@ -1,24 +1,25 @@
-name: Auto Merge Feature to Main
-
+name: Merge on Push with Tests
 on:
   push:
     branches:
-      - feature # 开发分支名称
+      - feature
 
 jobs:
-  merge:
+  merge-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Configure Git
+      - name: Setup Git
         run: |
           git config --global user.name "yuuuuuj"
           git config --global user.email "17373046129@163.com"
+          git remote set-url origin https://${{ secrets.XTX_TOKEN }}@github.com/Xtx-uniShop.git
 
-      - name: Merge to Main
+      - name: Merge changes
         run: |
-          git checkout remotes/origin/dev
+          git checkout main
           git pull
-          git checkout -b feature-merge
+          git merge feature
+          git push
