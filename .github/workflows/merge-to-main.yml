@@ -16,7 +16,7 @@ jobs:
           git config --global user.name "yuuuuuj"
           git config --global user.email "17373046129@163.com"
 
-      - name: Merge changes
+      - name: Merge change
         run: |
           git fetch
           git checkout main
