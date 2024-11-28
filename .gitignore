@@ -12,5 +12,3 @@ dist
 .DS_Store
 *.local
 .idea
-merge-to-main.yml
-.github/**

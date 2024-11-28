@@ -19,6 +19,7 @@ jobs:
       - name: Merge changes
         run: |
           git fetch
-          git checkout remotes/origin/main
-          git merge remotes/origin/feature --allow-unrelated-histories
+          git checkout main
+          git pull
+          git merge feature --allow-unrelated-histories
           git push
