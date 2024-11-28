@@ -18,8 +18,7 @@ jobs:
 
       - name: Merge change
         run: |
-          git fetch
-          git checkout main
           git pull
-          git merge --force feature
+          git checkout main
+          git merge feature
           git push
