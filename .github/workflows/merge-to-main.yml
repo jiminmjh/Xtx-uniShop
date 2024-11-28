@@ -19,4 +19,8 @@ jobs:
 
       - name: Merge changes
         run: |
-          git checkout remotes/origin/main
+          git fetch
+          git checkout main
+          git pull
+          git merge feature
+          git push
